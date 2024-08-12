@@ -12,6 +12,8 @@ steps:
     - |
       # Retrieve the service account key from Secret Manager
       gcloud secrets versions access latest --secret="gcloudcliapp-sa-key" > /workspace/gcloudcliapp-sa-key.json
+      # List files for debugging
+      ls -l /workspace
       
 #      # Export the key location as an environment variable
 #      export GOOGLE_APPLICATION_CREDENTIALS="/workspace/gcloudcliapp-sa-key.json"
