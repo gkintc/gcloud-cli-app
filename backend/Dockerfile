@@ -1,48 +1,30 @@
-# Use the official Node.js image.
+# Use an official Node.js image as a parent image
 FROM node:18
 
-# Define and set the environment variable for Google Cloud authentication
-ARG GOOGLE_APPLICATION_CREDENTIALS
-ENV GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
-
-# Print environment variables for debugging
-RUN echo "GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}" && \
-    echo "PATH=${PATH}" && \
-    echo "Current directory contents:" && \
-    ls -l 
-
-# Copy the service account key from the build context
-COPY ${GOOGLE_APPLICATION_CREDENTIALS} /workspace/gcloudcliapp-sa-key.json
-
-# Install necessary tools, e.g., Google Cloud SDK, or other dependencies
-# Install curl and other dependencies
-RUN apt-get update && \
-    apt-get install -y curl
-
-# Install Google Cloud SDK
-RUN curl https://sdk.cloud.google.com | bash
-
-# Install additional components
-RUN /bin/bash -c 'source /root/google-cloud-sdk/path.bash.inc && gcloud components install beta'
-
-# Add Google Cloud CLI to PATH
-ENV PATH $PATH:/root/google-cloud-sdk/bin
-
-# Set the working directory in the container.
+# Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Install the necessary packages.
-COPY backend/package*.json ./
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
 
-# Install dependencies
+# Install application dependencies
 RUN npm install
 
-# Copy the application code
+# Copy the rest of the application code to the working directory
 COPY . .
 
-# Expose the port the app runs on.
-EXPOSE 5000
+# Install dependencies for Google Cloud SDK
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg \
+    && rm -rf /var/lib/apt/lists/*
 
-# Define the command to run the app.
-CMD [ "node", "server.js" ]
+# Install Google Cloud SDK
+RUN curl -sSL https://sdk.cloud.google.com | bash
+ENV PATH $PATH:/root/google-cloud-sdk/bin
 
+# Expose port 3000 (or whatever port your app is running on)
+EXPOSE 3000
+
+# Define the command to run your app using node
+CMD ["node", "app.js"]
