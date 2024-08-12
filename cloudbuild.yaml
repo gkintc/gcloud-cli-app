@@ -24,7 +24,7 @@ steps:
     - '-t'
     - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA'
     - '--build-arg'
-    - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/gcloudcliapp-sa-key.json'
+    - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/backend/gcloudcliapp-sa-key.json'
     - '-f'
     - 'backend/Dockerfile'
     - 'backend/'

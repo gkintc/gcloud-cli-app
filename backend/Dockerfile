@@ -12,7 +12,7 @@ RUN echo "GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}" && \
     ls -l 
 
 # Copy the service account key from the build context
-COPY ${GOOGLE_APPLICATION_CREDENTIALS} /
+COPY ${GOOGLE_APPLICATION_CREDENTIALS} /workspace/gcloudcliapp-sa-key.json
 
 # Install necessary tools, e.g., Google Cloud SDK, or other dependencies
 # Install curl and other dependencies
