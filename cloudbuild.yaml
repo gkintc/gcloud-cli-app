@@ -16,7 +16,7 @@ steps:
       export GOOGLE_APPLICATION_CREDENTIALS="/workspace/gcloudcliapp-sa-key.json"
 
       # Build the Docker image
-      docker build -t us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA' -f backend/Dockerfile --build-arg GOOGLE_APPLICATION_CREDENTIALS="/workspace/gcloudcliapp-sa-key.json" .
+      docker build . -t us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA' -f backend/Dockerfile --build-arg GOOGLE_APPLICATION_CREDENTIALS="/workspace/gcloudcliapp-sa-key.json"
 
 #- name: 'gcr.io/cloud-builders/docker'
 #  args: [
