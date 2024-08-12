@@ -27,4 +27,4 @@ ENV PATH $PATH:/root/google-cloud-sdk/bin
 EXPOSE 3000
 
 # Define the command to run your app using node
-CMD ["node", "app.js"]
+CMD ["node", "server.js"]
