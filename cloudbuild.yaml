@@ -17,7 +17,12 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'push',
-    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA',
+    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA'
+  ]
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'push',
     'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:latest'
   ]
 
@@ -41,6 +46,12 @@ steps:
     'push',
     'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA',
     'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:latest',
+  ]
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'push',
+    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:latest'
   ]
 
 images:
