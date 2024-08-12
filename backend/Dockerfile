@@ -9,7 +9,9 @@ ARG GOOGLE_APPLICATION_CREDENTIALS
 # used it to create a file during the build process
 
 # Set environment variable for Google Cloud SDK or other tools to find the credentials
-ENV GOOGLE_APPLICATION_CREDENTIALS=/etc/gcloudcliapp-sa-key.json
+ENV GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+
+# ENV GOOGLE_APPLICATION_CREDENTIALS=/etc/gcloudcliapp-sa-key.json
 
 # Install necessary tools, e.g., Google Cloud SDK, or other dependencies
 # Install curl and other dependencies
