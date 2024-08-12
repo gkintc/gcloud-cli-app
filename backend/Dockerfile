@@ -7,7 +7,6 @@ ARG GOOGLE_APPLICATION_CREDENTIALS
 # Copy the service account key into the image
 # This step assumes that you have passed the key as a build argument and
 # used it to create a file during the build process
-COPY --from=0 /workspace/gcloudcliapp-sa-key.json /etc/gcloudcliapp-sa-key.json
 
 # Set environment variable for Google Cloud SDK or other tools to find the credentials
 ENV GOOGLE_APPLICATION_CREDENTIALS=/etc/gcloudcliapp-sa-key.json
