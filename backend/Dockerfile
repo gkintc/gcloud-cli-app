@@ -5,8 +5,9 @@ FROM node:18
 ARG GOOGLE_APPLICATION_CREDENTIALS
 ENV GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
 
+
 # Copy the service account key from the build context
-COPY ${GOOGLE_APPLICATION_CREDENTIALS} /workspace/backend/gcloudcliapp-sa-key.json
+COPY ${GOOGLE_APPLICATION_CREDENTIALS} ./gcloudcliapp-sa-key.json
 
 # Install necessary tools, e.g., Google Cloud SDK, or other dependencies
 # Install curl and other dependencies
