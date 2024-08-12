@@ -12,10 +12,16 @@ ARG GOOGLE_APPLICATION_CREDENTIALS
 ENV GOOGLE_APPLICATION_CREDENTIALS=/etc/gcloudcliapp-sa-key.json
 
 # Install necessary tools, e.g., Google Cloud SDK, or other dependencies
-RUN apt-get update && apt-get install -y curl && \
-    curl https://sdk.cloud.google.com | bash && \
-    exec -l $SHELL && \
-    gcloud components install beta
+# Install curl and other dependencies
+RUN apt-get update && \
+    apt-get install -y curl
+
+# Install Google Cloud SDK
+RUN curl https://sdk.cloud.google.com | bash
+
+# Install additional components
+RUN /bin/bash -c 'source /root/google-cloud-sdk/path.bash.inc && gcloud components install beta'
+
 
 # Add Google Cloud CLI to PATH
 ENV PATH $PATH:/root/google-cloud-sdk/bin
