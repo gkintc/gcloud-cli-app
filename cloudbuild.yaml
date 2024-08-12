@@ -27,7 +27,7 @@ steps:
     - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/backend/gcloudcliapp-sa-key.json'
     - '-f'
     - 'backend/Dockerfile'
-    - '.'
+    - 'backend/'
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'tag-backend-image'
