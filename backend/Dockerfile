@@ -1,12 +1,22 @@
 # Use the official Node.js image.
 FROM node:18
 
-# Install Google Cloud CLI
-RUN apt-get update && apt-get install -y \
-    curl \
-    gnupg \
-    && curl -sSL https://sdk.cloud.google.com | bash \
-    && rm -rf /var/lib/apt/lists/*
+# Define build arguments
+ARG GOOGLE_APPLICATION_CREDENTIALS
+
+# Copy the service account key into the image
+# This step assumes that you have passed the key as a build argument and
+# used it to create a file during the build process
+COPY --from=0 /workspace/gcloudcliapp-sa-key.json /etc/gcloudcliapp-sa-key.json
+
+# Set environment variable for Google Cloud SDK or other tools to find the credentials
+ENV GOOGLE_APPLICATION_CREDENTIALS=/etc/gcloudcliapp-sa-key.json
+
+# Install necessary tools, e.g., Google Cloud SDK, or other dependencies
+RUN apt-get update && apt-get install -y curl && \
+    curl https://sdk.cloud.google.com | bash && \
+    exec -l $SHELL && \
+    gcloud components install beta
 
 # Add Google Cloud CLI to PATH
 ENV PATH $PATH:/root/google-cloud-sdk/bin
