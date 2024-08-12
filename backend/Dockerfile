@@ -11,6 +11,8 @@ ARG GOOGLE_APPLICATION_CREDENTIALS
 # Set environment variable for Google Cloud SDK or other tools to find the credentials
 ENV GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
 
+COPY ${GOOGLE_APPLICATION_CREDENTIALS} /workspace/gcloudcliapp-sa-key.json
+
 # ENV GOOGLE_APPLICATION_CREDENTIALS=/etc/gcloudcliapp-sa-key.json
 
 # Install necessary tools, e.g., Google Cloud SDK, or other dependencies
