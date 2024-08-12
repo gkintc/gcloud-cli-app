@@ -5,9 +5,14 @@ FROM node:18
 ARG GOOGLE_APPLICATION_CREDENTIALS
 ENV GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
 
-
+# Print environment variables for debugging
+RUN echo "GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}" && \
+    echo "PATH=${PATH}" && \
+    echo "Current directory contents:" && \
+    ls -l /workspace
+    
 # Copy the service account key from the build context
-COPY ${GOOGLE_APPLICATION_CREDENTIALS} ./gcloudcliapp-sa-key.json
+COPY ${GOOGLE_APPLICATION_CREDENTIALS} /workspace/gcloudcliapp-sa-key.json
 
 # Install necessary tools, e.g., Google Cloud SDK, or other dependencies
 # Install curl and other dependencies
