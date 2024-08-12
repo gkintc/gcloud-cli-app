@@ -1,6 +1,13 @@
 # Use the official Node.js image.
 FROM node:18
 
+# Define and set the environment variable for Google Cloud authentication
+ARG GOOGLE_APPLICATION_CREDENTIALS
+ENV GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
+
+# Copy the service account key from the build context
+COPY ${GOOGLE_APPLICATION_CREDENTIALS} /workspace/gcloudcliapp-sa-key.json
+
 # Install necessary tools, e.g., Google Cloud SDK, or other dependencies
 # Install curl and other dependencies
 RUN apt-get update && \
@@ -26,13 +33,6 @@ RUN npm install
 
 # Copy the application code
 COPY . .
-
-# Define and set the environment variable for Google Cloud authentication
-ARG GOOGLE_APPLICATION_CREDENTIALS
-ENV GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
-
-# Copy the service account key from the build context
-COPY ${GOOGLE_APPLICATION_CREDENTIALS} /workspace/gcloudcliapp-sa-key.json
 
 # Expose the port the app runs on.
 EXPOSE 5000
