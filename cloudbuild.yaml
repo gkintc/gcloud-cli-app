@@ -1,9 +1,32 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli:$COMMIT_SHA', '.']
+- name: 'gcr.io/cloud-builders/backend'
+  args: [
+    'build',
+    '-t', 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA',
+    '-f', 'backend/Dockerfile',
+    'backend'
+  ]
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli:$COMMIT_SHA']
+- name: 'gcr.io/cloud-builders/backend'
+  args: [
+    'push',
+    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA'
+  ]
+
+- name: 'gcr.io/cloud-builders/frontend'
+  args: [
+    'build',
+    '-t', 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA',
+    '-f', 'backend/Dockerfile',
+    'backend'
+  ]
+
+- name: 'gcr.io/cloud-builders/frontend'
+  args: [
+    'push',
+    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA'
+  ]
 
 images:
-- 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli:$COMMIT_SHA'
+- 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA'
+- 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA'
