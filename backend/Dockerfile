@@ -30,7 +30,7 @@ ENV PATH $PATH:/root/google-cloud-sdk/bin
 WORKDIR /usr/src/app
 
 # Install the necessary packages.
-COPY package*.json ./
+COPY backend/package*.json ./
 
 # Install dependencies
 RUN npm install
