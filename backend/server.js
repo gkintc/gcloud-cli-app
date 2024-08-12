@@ -3,6 +3,10 @@ const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
 const { exec } = require('child_process');
 const app = express();
 const port = 3000;
+const cors = require('cors');
+
+// Use CORS middleware
+app.use(cors());
 
 // Middleware to parse JSON bodies
 app.use(express.json());
