@@ -1,11 +1,31 @@
+options:
+  logging: CLOUD_LOGGING_ONLY  # Optional, if you want logs in Cloud Logging only
+  logs_bucket: gs://gcloudcliapp
+
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'build',
-    '-t', 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA',
-    '-f', 'backend/Dockerfile',
-    'backend'
-  ]
+
+# Step to access the secret and save it to a file
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      # Retrieve the service account key from Secret Manager
+      gcloud secrets versions access latest --secret="gcloudcliapp-sa-key" > /workspace/gcloudcliapp-sa-key.json
+      
+      # Export the key location as an environment variable
+      export GOOGLE_APPLICATION_CREDENTIALS="/workspace/gcloudcliapp-sa-key.json"
+
+      # Build the Docker image
+      docker build -t us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA' -f backend/Dockerfile --build-arg GOOGLE_APPLICATION_CREDENTIALS="/workspace/gcloudcliapp-sa-key.json" .
+
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: [
+#    'build',
+#    '-t', 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA',
+#    '-f', 'backend/Dockerfile',
+#    'backend'
+#  ]
 
 - name: 'gcr.io/cloud-builders/docker'
   args: [
