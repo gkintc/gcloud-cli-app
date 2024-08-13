@@ -6,7 +6,7 @@ const port = 5000;
 
 // Use CORS middleware
 app.use(cors({
-    origin: 'http://34.31.180.224:3000', // Allow requests from this origin
+    origin: '*', // Allow requests from this origin
     methods: ['GET', 'POST'], // Allow specific methods
     allowedHeaders: ['Content-Type'], // Allow specific headers
   }));
