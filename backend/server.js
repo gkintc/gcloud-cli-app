@@ -45,7 +45,7 @@ app.post('/execute-command', (req, res) => {
 });
 
 app.post('/run-script-orphaned-disk', (req, res) => {
-  const scriptPath = path.join(__dirname, 'script.sh'); // Path to your script
+  const scriptPath = path.join(__dirname, 'orphan-disk.sh'); // Path to your script
 
   exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
       if (error) {
