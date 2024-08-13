@@ -34,6 +34,10 @@ h1 {
     margin-bottom: 20px;
 }
 
+form {
+    width: 100%;
+}
+
 /* Styling for textarea */
 textarea {
     width: 100%;
