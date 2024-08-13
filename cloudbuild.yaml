@@ -53,7 +53,7 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   args: [
-    'build',
+    'build', '--no-cache',
     '-t', 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA',
     '-f', 'frontend/Dockerfile',
     'frontend'
