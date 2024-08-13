@@ -10,6 +10,8 @@ COPY package*.json ./
 # Install application dependencies
 RUN npm install
 
+RUN npm install cors
+
 # Copy the rest of the application code to the working directory
 COPY . .
 
@@ -23,8 +25,8 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sSL https://sdk.cloud.google.com | bash
 ENV PATH $PATH:/root/google-cloud-sdk/bin
 
-# Expose port 3000 (or whatever port your app is running on)
-EXPOSE 3000
+# Expose port 5000 (or whatever port your app is running on)
+EXPOSE 5000
 
 # Define the command to run your app using node
-CMD ["node", "server.js"]
+CMD ["node", "server-1.js"]
