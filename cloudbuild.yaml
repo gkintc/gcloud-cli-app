@@ -2,21 +2,6 @@ options:
   logging: CLOUD_LOGGING_ONLY  # Optional, if you want logs in Cloud Logging only
 
 steps:
-
-# Step to access the secret and save it to a file
-#- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#  id: 'retrieve-secret'
-#  entrypoint: 'bash'
-#  args:
-#    - '-c'
-#    - |
-#      # Retrieve the service account key from Secret Manager
-#      gcloud secrets versions access latest --secret="gcloudcliapp-sa-key" > /workspace/gcloudcliapp-sa-key.json
-#      # List files for debugging
-#      ls -l /workspace
-#      cp /workspace/gcloudcliapp-sa-key.json /workspace/backend/
-#      ls -l /workspace/backend
-      
 - name: 'gcr.io/cloud-builders/docker'
   id: 'build-backend-image'
   args:
@@ -24,35 +9,31 @@ steps:
     - '--no-cache'
     - '-t'
     - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA'
-#   - '--build-arg'
-#   - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/backend/gcloudcliapp-sa-key.json'
     - '-f'
     - 'backend/Dockerfile'
     - 'backend'
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'tag-backend-image'
-  args: [
-    'tag',
-    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA',
-    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:latest',
-  ]
+  args:
+    - 'tag'
+    - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA'
+    - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:latest'
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'push-backend-image:commit'
-  args: [
-    'push',
-    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA'
-  ]
+  args:
+    - 'push'
+    - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA'
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'push-backend-image:latest'
-  args: [
-    'push',
-    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:latest'
-  ]
+  args:
+    - 'push'
+    - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:latest'
 
 - name: 'gcr.io/cloud-builders/docker'
+  id: 'build-frontend-image'
   args:
     - 'build'
     - '--no-cache'
@@ -63,23 +44,23 @@ steps:
     - 'frontend'
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'tag',
-    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA',
-    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:latest',
-  ]
+  id: 'tag-frontend-image'
+  args:
+    - 'tag'
+    - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA'
+    - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:latest'
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'push',
-    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA'
-  ]
+  id: 'push-frontend-image:commit'
+  args:
+    - 'push'
+    - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA'
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'push',
-    'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:latest'
-  ]
+  id: 'push-frontend-image:latest'
+  args:
+    - 'push'
+    - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:latest'
 
 images:
 - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-backend:$COMMIT_SHA'
