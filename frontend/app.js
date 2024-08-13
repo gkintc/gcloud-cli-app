@@ -15,3 +15,7 @@ document.getElementById('commandForm').addEventListener('submit', async (event) 
         document.getElementById('result').textContent = 'Error: ' + err.message;
     }
 });
+
+document.getElementById('clearScreenButton').addEventListener('click', () => {
+    document.getElementById('result').textContent = '';
+});
