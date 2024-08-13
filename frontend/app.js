@@ -24,7 +24,7 @@ document.getElementById('clearScreenButton').addEventListener('click', () => {
 document.getElementById('running-vm').addEventListener('click', async () => {
     const hardcodedCommand = 'gcloud compute instances list --filter="status:RUNNING" --format="table(name, creationTimestamp)"'; // Replace this with your hardcoded command
     try {
-        const response = await fetch('http://localhost:5000/execute-command', {
+        const response = await fetch('http://34.31.180.224:5000/execute-command', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
