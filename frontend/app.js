@@ -15,4 +15,3 @@ document.getElementById('commandForm').addEventListener('submit', async (event) 
         document.getElementById('result').textContent = 'Error: ' + err.message;
     }
 });
-
