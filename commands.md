@@ -15,3 +15,21 @@ bindings:
   role: roles/secretmanager.secretAccessor
 etag: BwYfeKYbkXM=
 version: 1
+
+
+
+gcloud projects add-iam-policy-binding articulate-rain-321323 \
+    --member="serviceAccount:gcloudcliapp@articulate-rain-321323.iam.gserviceaccount.com" \
+    --role="roles/logging.logWriter"
+
+
+
+curl -X POST http://localhost:5000/execute-command \
+     -H "Content-Type: application/json" \
+     -d '{"command": "gcloud compute instances list"}'
+
+
+
+docker-compose pull
+
+docker-compose up --force-recreate -d
