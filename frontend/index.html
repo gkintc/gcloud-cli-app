@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>gcloud CLI UI</h1>
-    <form id="commandForm">
-        <textarea id="commandInput" rows="4" cols="50" placeholder="Enter gcloud command"></textarea>
-        <br>
-        <button type="submit">Execute Command</button>
-        <button type="button" id="clearScreenButton">Clear Screen</button>
-    </form>
-    <pre id="result"></pre>
+    <div class="container">
+        <h1>gcloud CLI UI</h1>
+        <form id="commandForm">
+            <textarea id="commandInput" rows="4" cols="50" placeholder="Enter gcloud command"></textarea>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Execute Command</button>
+                <button type="button" id="clearScreenButton" class="btn btn-secondary">Clear Screen</button>
+            </div>
+        </form>
+        <pre id="result" class="result-box"></pre>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
-
