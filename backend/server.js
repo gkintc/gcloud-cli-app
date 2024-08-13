@@ -8,7 +8,7 @@ const port = 5000;
 app.use(cors({
     origin: '*', // Allow requests from this origin
     methods: ['GET', 'POST'], // Allow specific methods
-    allowedHeaders: ['Content-Type'], // Allow specific headers
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
   }));
 
 app.use(express.json());
