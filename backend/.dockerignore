@@ -1,0 +1,3 @@
+# Ensure the /workspace directory is not excluded
+node_modules
+npm-debug.log
