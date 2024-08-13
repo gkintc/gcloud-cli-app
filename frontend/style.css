@@ -91,4 +91,5 @@ textarea {
     text-align: left;
     max-height: 300px;
     overflow-y: auto;
+    width: calc(100% + 30%); /* Increase width by 30% */
 }
