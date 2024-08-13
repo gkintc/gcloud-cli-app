@@ -44,6 +44,20 @@ app.post('/execute-command', (req, res) => {
   });
 });
 
+app.post('/run-script-orphaned-disk', (req, res) => {
+  const scriptPath = path.join(__dirname, 'script.sh'); // Path to your script
+
+  exec(`bash ${scriptPath}`, (error, stdout, stderr) => {
+      if (error) {
+          return res.status(500).json({ error: error.message });
+      }
+      if (stderr) {
+          return res.status(500).json({ error: stderr });
+      }
+      res.json({ result: stdout });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
