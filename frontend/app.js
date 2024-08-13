@@ -2,7 +2,7 @@ document.getElementById('commandForm').addEventListener('submit', async (event) 
     event.preventDefault();
     const command = document.getElementById('commandInput').value;
     try {
-        const response = await fetch('http://localhost:5000/execute-command', {
+        const response = await fetch('http://34.31.180.224:5000/execute-command', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
