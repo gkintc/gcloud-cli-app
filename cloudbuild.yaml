@@ -28,7 +28,7 @@ steps:
 #   - 'GOOGLE_APPLICATION_CREDENTIALS=/workspace/backend/gcloudcliapp-sa-key.json'
     - '-f'
     - 'backend/Dockerfile'
-    - 'backend/'
+    - 'backend'
 
 - name: 'gcr.io/cloud-builders/docker'
   id: 'tag-backend-image'
@@ -53,12 +53,14 @@ steps:
   ]
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: [
-    'build', '--no-cache',
-    '-t', 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA',
-    '-f', 'frontend/Dockerfile',
-    'frontend'
-  ]
+  args:
+    - 'build'
+    - '--no-cache'
+    - '-t'
+    - 'us-west1-docker.pkg.dev/articulate-rain-321323/gcloud-cli/gcloud-cli-frontend:$COMMIT_SHA'
+    - '-f'
+    - 'frontend/Dockerfile'
+    - 'frontend'
 
 - name: 'gcr.io/cloud-builders/docker'
   args: [
